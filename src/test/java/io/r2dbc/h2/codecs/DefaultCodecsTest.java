@@ -19,6 +19,7 @@ package io.r2dbc.h2.codecs;
 import io.r2dbc.h2.client.Client;
 import org.h2.value.Value;
 import org.h2.value.ValueInt;
+import org.h2.value.ValueString;
 import org.h2.value.ValueNull;
 import org.junit.jupiter.api.Test;
 
@@ -166,6 +167,13 @@ final class DefaultCodecsTest {
         Value parameter = new DefaultCodecs(mock(Client.class)).encode(100);
 
         assertThat(parameter).isEqualTo(ValueInt.get(100));
+    }
+
+    @Test
+    void encodeWithString() {
+        Value parameter = new DefaultCodecs(mock(Client.class)).encode("OneHundred");
+
+        assertThat(parameter).isEqualTo(ValueString.get("OneHundred"));
     }
 
     @Test
